@@ -141,7 +141,7 @@
   .gallery--bento .gallery__item:nth-child(7){grid-area:4 / 1 / 5 / 2}
   .gallery--bento .gallery__item:nth-child(8){grid-area:4 / 2 / 5 / 3}
   .gallery__media,.gallery__img{width:100%;height:100%}
-  .gallery__img{display:block;object-fit:cover;filter:saturate(.85) contrast(1.02) brightness(.78)}
+  .gallery__img{display:block;object-fit:cover;filter:grayscale(1) contrast(1.03) brightness(.82)}
   .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,20,20,.22),transparent 30%,rgba(20,20,20,.68))}
   .hero-overlay::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 64px),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 64px);mask-image:radial-gradient(120% 100% at 50% 100%,#000,transparent 75%)}
   .hero-inner{position:absolute;inset:0;z-index:2;width:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,8vh,90px);padding-top:120px;will-change:transform,opacity}
@@ -187,7 +187,7 @@
   /* BRAND */
   #brand{position:relative;z-index:0;color:var(--white);padding:clamp(100px,16vh,180px) 0;overflow:hidden;background:var(--ink)}
   #brand .ph.bg{position:absolute;inset:-8% 0;height:116%;z-index:0;
-    background:linear-gradient(180deg,rgba(15,15,15,.7),rgba(15,15,15,.85)),linear-gradient(120deg,#242424,#101010);will-change:transform}
+    background:linear-gradient(180deg,rgba(15,15,15,.72),rgba(15,15,15,.82)),url('img/brand.jpg') center/cover no-repeat,linear-gradient(120deg,#242424,#101010);will-change:transform}
   #brand .ph.bg::before,#brand .ph.bg::after{display:none}
   .brand-inner{position:relative;z-index:2;max-width:760px}
   .brand-inner h2{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:400;margin:22px 0 26px}
@@ -311,6 +311,8 @@
   @media (max-width:520px){.stats-grid{grid-template-columns:1fr}.foot-top{grid-template-columns:1fr}}
   :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
   header.nav.scrolled :focus-visible{outline-color:var(--ink)}
+.ph{background-size:cover;background-position:center;background-repeat:no-repeat;filter:grayscale(1) contrast(1.04)}
+.ph::before,.ph::after{content:none !important;display:none !important}
 </style>
 </head>
 <body>
@@ -367,7 +369,7 @@
     <span class="eyebrow" data-reveal>Who we are</span>
     <p class="lede" data-mask>A full-service firm dedicated to elevating communities and bringing transformative developments to life.</p>
     <div class="company-grid">
-      <div class="ph" data-label="City / evening exterior" style="aspect-ratio:4/3"></div>
+      <div class="ph" data-label="City / evening exterior" style="aspect-ratio:4/3;background-image:url('img/company.jpg')"></div>
       <div class="company-copy">
         <p data-reveal>Meridian builds communities that transform neighborhoods. From identification to stabilization, we take every property through our own in-house platform — planning, capital, construction, and long-term management under one roof.</p>
         <p data-reveal>That ownership of the full lifecycle is what lets us move quickly in complex markets while holding an owner's standard of care from the first drawing to the last resident.</p>
@@ -399,10 +401,10 @@
       <p data-reveal>One team, one standard of accountability — from the first acquisition through decades of operation.</p>
     </div>
     <div class="cap-grid">
-      <div class="cap" data-reveal><span class="idx">01</span><h3>Investment</h3><p>We identify opportunity where others see complexity — moving quickly in supply-constrained markets with the in-house expertise to evaluate, structure, and close.</p><div class="ph" data-label="Investment"></div></div>
-      <div class="cap" data-reveal><span class="idx">02</span><h3>Development</h3><p>From entitlements to delivery, we lead every project hands-on — navigating complex approvals and building communities that set a new standard for their markets.</p><div class="ph" data-label="Development"></div></div>
-      <div class="cap" data-reveal><span class="idx">03</span><h3>Construction</h3><p>A senior construction executive on every project, with full-time on-site oversight from predevelopment through turnover. No gaps in accountability.</p><div class="ph" data-label="Construction"></div></div>
-      <div class="cap" data-reveal><span class="idx">04</span><h3>Management</h3><p>We manage every asset we build, staying accountable for resident experience and long-term performance long after construction closes.</p><div class="ph" data-label="Management"></div></div>
+      <div class="cap" data-reveal><span class="idx">01</span><h3>Investment</h3><p>We identify opportunity where others see complexity — moving quickly in supply-constrained markets with the in-house expertise to evaluate, structure, and close.</p><div class="ph" data-label="Investment" style="background-image:url('img/cap-investment.jpg')"></div></div>
+      <div class="cap" data-reveal><span class="idx">02</span><h3>Development</h3><p>From entitlements to delivery, we lead every project hands-on — navigating complex approvals and building communities that set a new standard for their markets.</p><div class="ph" data-label="Development" style="background-image:url('img/cap-development.jpg')"></div></div>
+      <div class="cap" data-reveal><span class="idx">03</span><h3>Construction</h3><p>A senior construction executive on every project, with full-time on-site oversight from predevelopment through turnover. No gaps in accountability.</p><div class="ph" data-label="Construction" style="background-image:url('img/cap-construction.jpg')"></div></div>
+      <div class="cap" data-reveal><span class="idx">04</span><h3>Management</h3><p>We manage every asset we build, staying accountable for resident experience and long-term performance long after construction closes.</p><div class="ph" data-label="Management" style="background-image:url('img/cap-management.jpg')"></div></div>
     </div>
   </div>
 </section>
@@ -425,12 +427,12 @@
       <h2 data-mask style="margin-top:16px">Our portfolio</h2>
     </div>
     <div class="pf-track" id="pfTrack">
-      <article class="pf-card" data-reveal><div class="ph"></div><div class="pf-meta"><span class="pf-name">Vantage Riverside</span><span class="pf-tag">Residential · 220 units</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph"></div><div class="pf-meta"><span class="pf-name">Vantage Harbor</span><span class="pf-tag">Mixed-use</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph"></div><div class="pf-meta"><span class="pf-name">Vantage Center</span><span class="pf-tag">6-phase · Downtown</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph"></div><div class="pf-meta"><span class="pf-name">Vantage Mill District</span><span class="pf-tag">Residential · 72 units</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph"></div><div class="pf-meta"><span class="pf-name">Meridian HQ</span><span class="pf-tag">Commercial</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph"></div><div class="pf-meta"><span class="pf-name">Vantage Depot</span><span class="pf-tag">Transit-oriented</span></div></article>
+      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-riverside.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Riverside</span><span class="pf-tag">Residential · 220 units</span></div></article>
+      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-harbor.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Harbor</span><span class="pf-tag">Mixed-use</span></div></article>
+      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-center.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Center</span><span class="pf-tag">6-phase · Downtown</span></div></article>
+      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-mill.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Mill District</span><span class="pf-tag">Residential · 72 units</span></div></article>
+      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-hq.jpg')"></div><div class="pf-meta"><span class="pf-name">Meridian HQ</span><span class="pf-tag">Commercial</span></div></article>
+      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-depot.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Depot</span><span class="pf-tag">Transit-oriented</span></div></article>
     </div>
   </div>
   <div class="wrap">
@@ -445,7 +447,7 @@
     <h2 data-mask style="font-size:clamp(2.2rem,5vw,3.4rem);font-weight:400;margin:18px 0 8px">Redevelopment case studies</h2>
 
     <article class="case">
-      <div class="case-media"><div class="ph" data-label="Vantage Center"></div></div>
+      <div class="case-media"><div class="ph" data-label="Vantage Center" style="background-image:url('img/case-center.jpg')"></div></div>
       <div class="case-body" data-reveal>
         <span class="eyebrow">Vantage Center · Downtown</span>
         <h3>A six-phase mixed-use transformation</h3>
@@ -455,7 +457,7 @@
     </article>
 
     <article class="case">
-      <div class="case-media"><div class="ph" data-label="Vantage Harbor"></div></div>
+      <div class="case-media"><div class="ph" data-label="Vantage Harbor" style="background-image:url('img/case-harbor.jpg')"></div></div>
       <div class="case-body" data-reveal>
         <span class="eyebrow">Vantage Harbor</span>
         <h3>Design-forward living, transit-connected</h3>
@@ -465,7 +467,7 @@
     </article>
 
     <article class="case">
-      <div class="case-media"><div class="ph" data-label="Vantage Mill District"></div></div>
+      <div class="case-media"><div class="ph" data-label="Vantage Mill District" style="background-image:url('img/case-mill.jpg')"></div></div>
       <div class="case-body" data-reveal>
         <span class="eyebrow">Vantage Mill District</span>
         <h3>Historic character, modern standard</h3>
@@ -484,11 +486,11 @@
     <div class="slider">
       <div class="swiper" id="contextSwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><div class="ph" data-label="Lobby"></div><div class="s-lbl">01 — Arrival lobby</div></div>
-          <div class="swiper-slide"><div class="ph" data-label="Great hall"></div><div class="s-lbl">02 — Resident hall</div></div>
-          <div class="swiper-slide"><div class="ph" data-label="Streetscape"></div><div class="s-lbl">03 — Streetscape &amp; retail</div></div>
-          <div class="swiper-slide"><div class="ph" data-label="Rooftop"></div><div class="s-lbl">04 — Rooftop terrace</div></div>
-          <div class="swiper-slide"><div class="ph" data-label="Residence"></div><div class="s-lbl">05 — Residence interior</div></div>
+          <div class="swiper-slide"><div class="ph" data-label="Lobby" style="background-image:url('img/ctx-lobby.jpg')"></div><div class="s-lbl">01 — Arrival lobby</div></div>
+          <div class="swiper-slide"><div class="ph" data-label="Great hall" style="background-image:url('img/ctx-hall.jpg')"></div><div class="s-lbl">02 — Resident hall</div></div>
+          <div class="swiper-slide"><div class="ph" data-label="Streetscape" style="background-image:url('img/ctx-street.jpg')"></div><div class="s-lbl">03 — Streetscape &amp; retail</div></div>
+          <div class="swiper-slide"><div class="ph" data-label="Rooftop" style="background-image:url('img/ctx-rooftop.jpg')"></div><div class="s-lbl">04 — Rooftop terrace</div></div>
+          <div class="swiper-slide"><div class="ph" data-label="Residence" style="background-image:url('img/ctx-residence.jpg')"></div><div class="s-lbl">05 — Residence interior</div></div>
         </div>
       </div>
       <div class="slider-ctrl">
@@ -506,9 +508,9 @@
     <h2 data-mask style="font-size:clamp(2.2rem,5vw,3.4rem);font-weight:400;margin:18px 0 8px">News</h2>
     <p data-reveal style="color:var(--grey);max-width:44ch">Company announcements, project milestones, and market perspectives from the Meridian team.</p>
     <div class="news-grid">
-      <article class="article" data-reveal><div class="ph" data-label="Leasing launch"></div><span class="src">Regional Business</span><h3>Leasing launches for 85 luxury apartments downtown</h3><span class="link link-disabled" aria-disabled="true">Archive soon</span></article>
-      <article class="article" data-reveal><div class="ph" data-label="New project"></div><span class="src">Real Estate Weekly</span><h3>Meridian debuts 100-unit rental as latest Vantage project</h3><span class="link link-disabled" aria-disabled="true">Archive soon</span></article>
-      <article class="article" data-reveal><div class="ph" data-label="Phase complete"></div><span class="src">Urban Development News</span><h3>Fifth residential phase reaches completion at Vantage Center</h3><span class="link link-disabled" aria-disabled="true">Archive soon</span></article>
+      <article class="article" data-reveal><div class="ph" data-label="Leasing launch" style="background-image:url('img/news-leasing.jpg')"></div><span class="src">Regional Business</span><h3>Leasing launches for 85 luxury apartments downtown</h3><span class="link link-disabled" aria-disabled="true">Archive soon</span></article>
+      <article class="article" data-reveal><div class="ph" data-label="New project" style="background-image:url('img/news-project.jpg')"></div><span class="src">Real Estate Weekly</span><h3>Meridian debuts 100-unit rental as latest Vantage project</h3><span class="link link-disabled" aria-disabled="true">Archive soon</span></article>
+      <article class="article" data-reveal><div class="ph" data-label="Phase complete" style="background-image:url('img/news-phase.jpg')"></div><span class="src">Urban Development News</span><h3>Fifth residential phase reaches completion at Vantage Center</h3><span class="link link-disabled" aria-disabled="true">Archive soon</span></article>
     </div>
   </div>
 </section>
