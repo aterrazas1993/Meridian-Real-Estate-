@@ -76,6 +76,20 @@
            -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+
+  /* PRELOADER — same mechanic as alre.com: a full-screen panel gated on
+     every image finishing loading, revealed via a clip-path wipe. The
+     wordmark groups fade/settle in a short staggered sequence before the
+     wipe starts, so the reveal always has a beat of breathing room even on
+     a fast connection (see the .preloader transition-delay below). */
+  .preloader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--ink);visibility:hidden;opacity:0;clip-path:inset(0 0 100% 0);transition:opacity 1s, visibility 1s, clip-path 1s;transition-delay:1.6s}
+  body.loading .preloader{transition-duration:0s;transition-delay:0s;visibility:visible;opacity:1;clip-path:inset(0 0 0% 0)}
+  .preloader-mark{font-family:var(--font);color:var(--white);font-weight:500;font-size:clamp(28px,4vw,44px);letter-spacing:.5em;text-indent:.5em;text-transform:uppercase;opacity:0;transition:opacity .8s ease, letter-spacing .8s ease;transition-delay:.4s}
+  body.loading .preloader-mark{opacity:1;letter-spacing:.14em;text-indent:0;transition-duration:0s;transition-delay:0s}
+  body.loading{overflow:hidden}
+  @media (prefers-reduced-motion: reduce){
+    .preloader,.preloader-mark{transition:none!important}
+  }
   html{scroll-behavior:smooth}
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
   body{font-family:var(--font);font-weight:300;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-.005em;overflow-x:hidden}
@@ -293,7 +307,9 @@
 .ph::before,.ph::after{content:none !important;display:none !important}
 </style>
 </head>
-<body>
+<body class="loading">
+<noscript><style>.preloader{display:none!important}body{overflow:visible!important}</style></noscript>
+<div class="preloader" aria-hidden="true"><span class="preloader-mark">Meridian</span></div>
 <a href="#company" class="skip-link">Skip to content</a>
 
 <div id="progress" aria-hidden="true"></div>
@@ -799,6 +815,36 @@
   });
 
   update();
+})();
+</script>
+
+<script>
+(function () {
+  var MAX_WAIT_MS = 4000; // safety net in case an image never fires load/error
+
+  function reveal() {
+    if (!document.body.classList.contains('loading')) return;
+    document.body.classList.remove('loading');
+  }
+
+  function whenImagesReady(callback) {
+    var imgs = Array.prototype.slice.call(document.images);
+    var pending = imgs.filter(function (img) { return !img.complete; }).length;
+    if (pending === 0) { callback(); return; }
+
+    function done() {
+      pending -= 1;
+      if (pending <= 0) callback();
+    }
+    imgs.forEach(function (img) {
+      if (img.complete) return;
+      img.addEventListener('load', done, { once: true });
+      img.addEventListener('error', done, { once: true });
+    });
+  }
+
+  whenImagesReady(reveal);
+  setTimeout(reveal, MAX_WAIT_MS);
 })();
 </script>
 </body>
