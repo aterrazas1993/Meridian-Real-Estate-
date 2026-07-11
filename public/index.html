@@ -159,7 +159,8 @@
   #company{padding:clamp(90px,14vh,150px) 0}
   .lede{font-weight:300;font-size:clamp(1.55rem,3.3vw,2.6rem);line-height:1.22;letter-spacing:-.02em;max-width:22ch;margin:26px 0 0;color:var(--ink)}
   .company-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;margin-top:60px}
-  .company-grid .ph{aspect-ratio:4/3}
+  .company-grid .ph{aspect-ratio:1/1}
+  .hero-settle-photo{position:fixed;top:0;left:0;width:0;height:0;z-index:55;object-fit:cover;opacity:0;pointer-events:none;border-radius:2px;filter:grayscale(1) contrast(1.03) brightness(.82);will-change:transform,opacity,top,left,width,height}
   .company-copy p{color:var(--grey);font-size:16.5px;max-width:52ch}
   .company-copy p+p{margin-top:20px}
 
@@ -335,6 +336,9 @@
   </div>
 </header>
 
+<!-- Floating photo used by the hero -> "Who we are" settle animation (see createHeaderGalleryTween) -->
+<img id="heroSettlePhoto" class="hero-settle-photo" src="img/hero-03.jpg" alt="" aria-hidden="true">
+
 <!-- HERO -->
 <section id="hero">
   <div class="gallery-wrap">
@@ -369,7 +373,7 @@
     <span class="eyebrow" data-reveal>Who we are</span>
     <p class="lede" data-mask>A full-service firm dedicated to elevating communities and bringing transformative developments to life.</p>
     <div class="company-grid">
-      <div class="ph" data-label="City / evening exterior" style="aspect-ratio:4/3;background-image:url('img/company.jpg')"></div>
+      <div class="ph" data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/company.jpg')"></div>
       <div class="company-copy">
         <p data-reveal>Meridian builds communities that transform neighborhoods. From identification to stabilization, we take every property through our own in-house platform — planning, capital, construction, and long-term management under one roof.</p>
         <p data-reveal>That ownership of the full lifecycle is what lets us move quickly in complex markets while holding an owner's standard of care from the first drawing to the last resident.</p>
@@ -733,7 +737,7 @@
         scrollTrigger:{
           trigger:galleryElement,
           start:'center center',
-          end:'+=100%',
+          end:'+=240%',
           scrub:true,
           pin:galleryElement.parentNode,
           invalidateOnRefresh:true
@@ -744,9 +748,49 @@
       tl.to('.hero-overlay', { opacity:0.2, ease:'none' }, 0);
       tl.to('.hero-inner', { yPercent:-8, opacity:0.7, ease:'none' }, 0);
 
+      /* ---- Phase 2 (tl time 1 -> 2, second half of the pin): the hero
+         photo (hero-03, which is already near-fullscreen once the Flip
+         above finishes) hands off to a floating clone that shrinks and
+         settles into the square photo slot in "Who we are", landing
+         exactly where that real element sits so the pin can release with
+         no visible jump. See #heroSettlePhoto in the markup/CSS. ---- */
+      var settlePhoto = document.getElementById('heroSettlePhoto');
+      var companyEl = document.getElementById('company');
+      var companyPh = companyEl && companyEl.querySelector('.company-grid .ph');
+
+      if(settlePhoto && companyPh){
+        galleryElement.classList.add('gallery--final');
+        var startRect = galleryItems[2].getBoundingClientRect(); // hero-03 in its near-fullscreen "final" layout
+        galleryElement.classList.remove('gallery--final');
+
+        var companyRect = companyEl.getBoundingClientRect();
+        var phRect = companyPh.getBoundingClientRect();
+        // phRect.top - companyRect.top is scroll-invariant: the distance from
+        // #company's own top to the photo slot. Once the pin releases, #company's
+        // top lands at viewport y=0, so that distance IS the photo's landing y.
+        var endRect = {
+          top: phRect.top - companyRect.top,
+          left: phRect.left,
+          width: phRect.width,
+          height: phRect.height
+        };
+
+        gsap.set(settlePhoto, { top:startRect.top, left:startRect.left, width:startRect.width, height:startRect.height, opacity:0 });
+
+        tl.to(settlePhoto, { opacity:1, duration:0.12 }, 1)
+          .to(galleryItems, { opacity:0, duration:0.18 }, 1)
+          .to('.hero-overlay, .hero-inner', { opacity:0, duration:0.18 }, 1)
+          .to(settlePhoto, {
+            top:endRect.top, left:endRect.left, width:endRect.width, height:endRect.height,
+            duration:1, ease:'expo.inOut'
+          }, 1)
+          .set(settlePhoto, { opacity:0 }, 1.98);
+      }
+
       return function(){
         gsap.set(galleryItems, { clearProps:'all' });
         gsap.set('.hero-overlay, .hero-inner', { clearProps:'all' });
+        if(settlePhoto) gsap.set(settlePhoto, { opacity:0 });
       };
     }, galleryElement);
   };
