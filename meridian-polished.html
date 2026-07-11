@@ -124,10 +124,10 @@
   header.nav.scrolled .menu-toggle span{background:var(--ink)}
 
   /* HERO */
-  #hero{position:relative;padding-top:clamp(108px,14vh,140px);padding-bottom:clamp(40px,8vh,72px);color:var(--white)}
-  .hero-inner{position:relative;z-index:2;display:grid;gap:clamp(18px,3vh,28px)}
-  .hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
-  .hero-source{position:relative;aspect-ratio:2.06/1;border-radius:40px;overflow:hidden;background:#161616}
+  #hero{position:relative;height:100svh;min-height:680px;color:var(--white);overflow:visible}
+  .hero-inner{position:relative;z-index:60;height:100%;pointer-events:none}
+  .hero-top{position:absolute;z-index:3;left:0;right:0;bottom:clamp(28px,5vh,56px);display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+  .hero-source{position:absolute;inset:0 50%;width:100vw;margin-left:-50vw;overflow:hidden;background:#161616}
   .hero-image{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.03) brightness(.82)}
   .hero-foot{display:flex;justify-content:flex-end;align-items:flex-end;gap:24px;flex-wrap:wrap}
   .scroll-cue{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:10px}
@@ -137,7 +137,6 @@
   /* COMPANY */
   #company{padding:clamp(90px,14vh,150px) 0}
   .lede{font-weight:300;font-size:clamp(1.55rem,3.3vw,2.6rem);line-height:1.22;letter-spacing:-.02em;max-width:22ch;margin:26px 0 0;color:var(--ink)}
-  .eyebrow[data-settle-copy],.lede[data-settle-copy],.company-copy[data-settle-copy]{transition:opacity .45s ease .18s}
   .company-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;margin-top:60px}
   .company-grid .ph{aspect-ratio:1/1}
   .company-grid .ph[data-scroll-target]{border-radius:40px;overflow:hidden}
@@ -279,8 +278,7 @@
     .pf-track::-webkit-scrollbar{display:none}
     .pf-card{scroll-snap-align:start}
     .pf-card .ph{height:min(60vh,460px)}
-    #hero{padding-top:96px}
-    .hero-source{border-radius:28px}
+    #hero{min-height:620px}
   }
   @media (max-width:520px){.stats-grid{grid-template-columns:1fr}.foot-top{grid-template-columns:1fr}}
   :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -687,23 +685,22 @@
 </script>
 
 <style>
-.hero-float{position:fixed;top:0;left:0;width:0;height:0;object-fit:cover;z-index:55;pointer-events:none;opacity:0;visibility:hidden;transform-origin:0 0;border-radius:40px;filter:grayscale(1) contrast(1.03) brightness(.82);will-change:transform,opacity,border-radius}
-[data-scroll-target]{opacity:0;transition:opacity .35s ease}
+.hero-float{position:absolute;top:0;left:0;width:0;height:0;object-fit:cover;z-index:55;pointer-events:none;transform-origin:0 0;border-radius:0;filter:grayscale(1) contrast(1.03) brightness(.82);will-change:transform,width,height,border-radius}
+[data-scroll-target]{visibility:hidden}
 </style>
 
 <script>
 (function () {
-  var SETTLE_DISTANCE_VH = 126;
-  var START_RADIUS = 40;
+  var START_RADIUS = 0;
   var END_RADIUS = 40;
   var sourceWrap = document.getElementById('hero-src');
   var target = document.getElementById('hero-dest');
   var sourceImg = sourceWrap && sourceWrap.querySelector('img');
-  var copyEls = Array.prototype.slice.call(document.querySelectorAll('[data-settle-copy]'));
   if (!sourceWrap || !target || !sourceImg) return;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var floating = document.createElement('img');
-  var coincideScrollY = 1;
+  var startScrollY = 0;
+  var endScrollY = 1;
   var startRect, endRect;
 
   floating.className = 'hero-float';
@@ -711,20 +708,25 @@
   floating.alt = '';
   floating.setAttribute('aria-hidden', 'true');
   document.body.appendChild(floating);
+  sourceWrap.style.visibility = 'hidden';
 
   function easeInOutCubic(x) {
     return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
   }
 
   function measure() {
-    startRect = sourceWrap.getBoundingClientRect();
+    var sourceRect = sourceWrap.getBoundingClientRect();
     var targetRect = target.getBoundingClientRect();
-    var targetDocTop = targetRect.top + window.scrollY;
-    var maxScrollY = document.documentElement.scrollHeight - window.innerHeight;
-    var desired = (SETTLE_DISTANCE_VH / 100) * window.innerHeight;
-    coincideScrollY = Math.max(1, Math.min(desired, maxScrollY - 20));
+    startScrollY = sourceWrap.offsetTop;
+    endScrollY = Math.max(startScrollY + 1, targetRect.top + window.scrollY - window.innerHeight * 0.28);
+    startRect = {
+      top: sourceRect.top + window.scrollY,
+      left: sourceRect.left,
+      width: sourceRect.width,
+      height: sourceRect.height
+    };
     endRect = {
-      top: targetDocTop - coincideScrollY,
+      top: targetRect.top + window.scrollY,
       left: targetRect.left,
       width: targetRect.width,
       height: targetRect.height
@@ -735,44 +737,44 @@
     floating.style.height = startRect.height + 'px';
   }
 
-  function setTextVisibility(value) {
-    copyEls.forEach(function(el){ el.style.opacity = value; });
+  function syncEndRect() {
+    var targetRect = target.getBoundingClientRect();
+    endRect.top = targetRect.top + window.scrollY;
+    endRect.left = targetRect.left;
+    endRect.width = targetRect.width;
+    endRect.height = targetRect.height;
   }
 
   measure();
   window.addEventListener('load', measure);
   window.addEventListener('resize', measure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 
   if (prefersReducedMotion) {
-    sourceWrap.style.opacity = 0;
-    target.style.opacity = 1;
-    setTextVisibility(1);
-    floating.remove();
+    floating.style.top = endRect.top + 'px';
+    floating.style.left = endRect.left + 'px';
+    floating.style.width = endRect.width + 'px';
+    floating.style.height = endRect.height + 'px';
+    floating.style.borderRadius = END_RADIUS + 'px';
     return;
   }
 
   var ticking = false;
   function update() {
     var scrollY = window.scrollY;
-    var t = Math.max(0, Math.min(1, scrollY / coincideScrollY));
+    syncEndRect();
+    var t = Math.max(0, Math.min(1, (scrollY - startScrollY) / (endScrollY - startScrollY)));
     var easedT = easeInOutCubic(t);
-    var live = t > 0.002;
-    var reveal = Math.max(0, Math.min(1, (t - 0.9) / 0.1));
     var left = startRect.left + (endRect.left - startRect.left) * easedT;
     var top = startRect.top + (endRect.top - startRect.top) * easedT;
     var width = startRect.width + (endRect.width - startRect.width) * easedT;
     var height = startRect.height + (endRect.height - startRect.height) * easedT;
     var radius = START_RADIUS + (END_RADIUS - START_RADIUS) * easedT;
 
-    sourceWrap.style.opacity = live ? 0 : 1;
-    floating.style.visibility = live ? 'visible' : 'hidden';
-    floating.style.opacity = live ? 1 - reveal : 0;
     floating.style.transform = 'translate(' + (left - startRect.left) + 'px,' + (top - startRect.top) + 'px)';
     floating.style.width = width + 'px';
     floating.style.height = height + 'px';
     floating.style.borderRadius = radius + 'px';
-    target.style.opacity = reveal;
-    setTextVisibility(t >= 1 ? 1 : 0);
     ticking = false;
   }
 
