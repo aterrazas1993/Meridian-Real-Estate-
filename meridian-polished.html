@@ -124,10 +124,10 @@
   header.nav.scrolled .menu-toggle span{background:var(--ink)}
 
   /* HERO */
-  #hero{position:relative;min-height:100svh;background:var(--ink);color:var(--white);overflow:hidden}
+  #hero{position:relative;min-height:100svh;background:transparent;color:var(--white);overflow:hidden}
   .hero-media{position:absolute;inset:0;z-index:0}
   .hero-image{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.03) brightness(.82)}
-  .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,20,20,.18),transparent 30%,rgba(20,20,20,.72))}
+  .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,20,20,.08),transparent 35%,rgba(20,20,20,.18))}
   .hero-overlay::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 64px),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 64px);mask-image:radial-gradient(120% 100% at 50% 100%,#000,transparent 75%)}
   .hero-inner{position:absolute;inset:0;z-index:2;width:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,8vh,90px);padding-top:120px;will-change:transform,opacity}
   .hero h1{font-size:clamp(2.9rem,8.4vw,7rem);font-weight:400;letter-spacing:-.03em;margin:24px 0 0;max-width:17ch}
@@ -143,6 +143,7 @@
   /* COMPANY */
   #company{padding:clamp(90px,14vh,150px) 0}
   .lede{font-weight:300;font-size:clamp(1.55rem,3.3vw,2.6rem);line-height:1.22;letter-spacing:-.02em;max-width:22ch;margin:26px 0 0;color:var(--ink)}
+  .lede[data-settle-copy]{transition:opacity .2s ease}
   .company-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;margin-top:60px}
   .company-grid .ph{aspect-ratio:1/1}
   .company-copy p{color:var(--grey);font-size:16.5px;max-width:52ch}
@@ -319,12 +320,7 @@
     <div class="hero-overlay" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <span class="eyebrow">Meridian Real Estate</span>
-      <h1>
-        <span class="line"><span class="line-in">Driven by vision.</span></span>
-        <span class="line"><span class="line-in"><em>Defined</em> by quality.</span></span>
-      </h1>
       <div class="hero-foot">
-        <p>A vertically integrated developer building residential and mixed-use communities in the neighborhoods where opportunity and need converge.</p>
         <span class="scroll-cue">Scroll</span>
       </div>
     </div>
@@ -335,9 +331,9 @@
 <section id="company">
   <div class="wrap">
     <span class="eyebrow" data-reveal>Who we are</span>
-    <p class="lede" data-mask>A full-service firm dedicated to elevating communities and bringing transformative developments to life.</p>
+    <p class="lede" data-mask data-settle-copy>A full-service firm dedicated to elevating communities and bringing transformative developments to life.</p>
     <div class="company-grid">
-      <div class="ph" data-scroll-target data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/company.jpg')"></div>
+      <div class="ph" data-scroll-target data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/hero-03.jpg')"></div>
       <div class="company-copy">
         <p data-reveal>Meridian builds communities that transform neighborhoods. From identification to stabilization, we take every property through our own in-house platform — planning, capital, construction, and long-term management under one roof.</p>
         <p data-reveal>That ownership of the full lifecycle is what lets us move quickly in complex markets while holding an owner's standard of care from the first drawing to the last resident.</p>
@@ -701,9 +697,10 @@
 <script>
 (function () {
   var SETTLE_DISTANCE_VH = 120;
-  var END_RADIUS = 2;
+  var END_RADIUS = 28;
   var source = document.querySelector('[data-scroll-source]');
   var target = document.querySelector('[data-scroll-target]');
+  var copy = document.querySelector('[data-settle-copy]');
   if (!source || !target) return;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasNativeSupport = window.CSS && CSS.supports('(animation-timeline: scroll()) and (animation-range: 0% 100%)');
@@ -737,12 +734,14 @@
   if (prefersReducedMotion) {
     source.style.display = 'none';
     target.style.opacity = 1;
+    if (copy) copy.style.opacity = 1;
     return;
   }
 
   var revealTicking = false;
   function updateReveal() {
     target.style.opacity = window.scrollY >= coincideScrollY ? 1 : 0;
+    if (copy) copy.style.opacity = window.scrollY >= coincideScrollY ? 1 : 0;
     revealTicking = false;
   }
 
@@ -780,6 +779,7 @@
     source.style.transform = 'translate(' + left + 'px,' + top + 'px) scale(' + scaleX + ',' + scaleY + ')';
     source.style.borderRadius = radiusX + 'px / ' + radiusY + 'px';
     source.style.visibility = scrollY >= coincideScrollY ? 'hidden' : 'visible';
+    if (copy) copy.style.opacity = scrollY >= coincideScrollY ? 1 : 0;
     ticking = false;
   }
 
