@@ -128,7 +128,13 @@
   .hero-inner{position:relative;z-index:60;height:100%;pointer-events:none}
   .hero-top{position:absolute;z-index:3;left:0;right:0;bottom:clamp(28px,5vh,56px);display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
   .hero-source{position:absolute;inset:0 50%;width:100vw;margin-left:-50vw;overflow:hidden;background:#161616}
-  .hero-image{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.03) brightness(.82)}
+  .hero-image{display:block;width:100%;height:100%;object-fit:cover;filter:contrast(1.03) brightness(.82)}
+  .hero-copy{max-width:640px}
+  #hero h1{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:400;letter-spacing:-.03em;margin:20px 0 0;max-width:17ch}
+  #hero h1 .line{display:block;overflow:hidden}
+  #hero h1 .line-in{display:block}
+  #hero h1 em{font-style:normal;color:rgba(255,255,255,.5)}
+  .hero-copy p{max-width:46ch;color:var(--on-dark);font-size:16px;font-weight:300;margin-top:20px}
   .hero-foot{display:flex;justify-content:flex-end;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-left:auto}
   .scroll-cue{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:10px}
   .scroll-cue::after{content:"";width:1px;height:34px;background:linear-gradient(rgba(255,255,255,.8),transparent);animation:cue 2s ease-in-out infinite}
@@ -283,7 +289,7 @@
   @media (max-width:520px){.stats-grid{grid-template-columns:1fr}.foot-top{grid-template-columns:1fr}}
   :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
   header.nav.scrolled :focus-visible{outline-color:var(--ink)}
-.ph{background-size:cover;background-position:center;background-repeat:no-repeat;filter:grayscale(1) contrast(1.04)}
+.ph{background-size:cover;background-position:center;background-repeat:no-repeat;filter:contrast(1.04)}
 .ph::before,.ph::after{content:none !important;display:none !important}
 </style>
 </head>
@@ -311,6 +317,14 @@
 <section id="hero">
   <div class="wrap hero-inner">
     <div class="hero-top">
+      <div class="hero-copy">
+        <span class="eyebrow">Meridian Real Estate</span>
+        <h1>
+          <span class="line"><span class="line-in">Driven by vision.</span></span>
+          <span class="line"><span class="line-in"><em>Defined</em> by quality.</span></span>
+        </h1>
+        <p>A vertically integrated developer building residential and mixed-use communities in the neighborhoods where opportunity and need converge.</p>
+      </div>
       <div class="hero-foot">
         <span class="scroll-cue">Scroll</span>
       </div>
@@ -684,7 +698,7 @@
 </script>
 
 <style>
-.hero-float{position:absolute;top:0;left:0;width:0;height:0;object-fit:cover;z-index:55;pointer-events:none;transform-origin:0 0;border-radius:0;filter:grayscale(1) contrast(1.03) brightness(.82);will-change:transform,width,height,border-radius}
+.hero-float{position:absolute;top:0;left:0;width:0;height:0;object-fit:cover;z-index:55;pointer-events:none;transform-origin:0 0;border-radius:0;filter:contrast(1.03) brightness(.82);will-change:transform,width,height,border-radius}
 [data-scroll-target]{visibility:hidden}
 </style>
 
