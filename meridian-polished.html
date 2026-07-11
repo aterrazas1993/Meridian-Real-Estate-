@@ -124,18 +124,12 @@
   header.nav.scrolled .menu-toggle span{background:var(--ink)}
 
   /* HERO */
-  #hero{position:relative;min-height:100svh;background:transparent;color:var(--white);overflow:hidden}
-  .hero-media{position:absolute;inset:0;z-index:0}
+  #hero{position:relative;padding-top:clamp(108px,14vh,140px);padding-bottom:clamp(40px,8vh,72px);color:var(--white)}
+  .hero-inner{position:relative;z-index:2;display:grid;gap:clamp(18px,3vh,28px)}
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+  .hero-source{position:relative;aspect-ratio:2.06/1;border-radius:40px;overflow:hidden;background:#161616}
   .hero-image{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.03) brightness(.82)}
-  .hero-overlay{display:none}
-  .hero-overlay::before{display:none}
-  .hero-inner{position:absolute;inset:0;z-index:2;width:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,8vh,90px);padding-top:120px;will-change:transform,opacity}
-  .hero h1{font-size:clamp(2.9rem,8.4vw,7rem);font-weight:400;letter-spacing:-.03em;margin:24px 0 0;max-width:17ch}
-  .hero h1 .line{display:block;overflow:hidden}
-  .hero h1 .line-in{display:block}
-  .hero h1 em{font-style:normal;color:rgba(255,255,255,.5)}
-  .hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:44px;flex-wrap:wrap}
-  .hero-foot p{max-width:46ch;color:var(--on-dark);font-size:16px;font-weight:300}
+  .hero-foot{display:flex;justify-content:flex-end;align-items:flex-end;gap:24px;flex-wrap:wrap}
   .scroll-cue{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:10px}
   .scroll-cue::after{content:"";width:1px;height:34px;background:linear-gradient(rgba(255,255,255,.8),transparent);animation:cue 2s ease-in-out infinite}
   @keyframes cue{0%,100%{transform:scaleY(.4);opacity:.4}50%{transform:scaleY(1);opacity:1}}
@@ -143,10 +137,10 @@
   /* COMPANY */
   #company{padding:clamp(90px,14vh,150px) 0}
   .lede{font-weight:300;font-size:clamp(1.55rem,3.3vw,2.6rem);line-height:1.22;letter-spacing:-.02em;max-width:22ch;margin:26px 0 0;color:var(--ink)}
-  .eyebrow[data-settle-copy],.lede[data-settle-copy],.company-copy[data-settle-copy]{transition:opacity .35s ease .12s}
+  .eyebrow[data-settle-copy],.lede[data-settle-copy],.company-copy[data-settle-copy]{transition:opacity .45s ease .18s}
   .company-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;margin-top:60px}
   .company-grid .ph{aspect-ratio:1/1}
-  .company-grid .ph[data-scroll-target]{border-radius:28px;overflow:hidden}
+  .company-grid .ph[data-scroll-target]{border-radius:40px;overflow:hidden}
   .company-copy p{color:var(--grey);font-size:16.5px;max-width:52ch}
   .company-copy p+p{margin-top:20px}
 
@@ -285,7 +279,8 @@
     .pf-track::-webkit-scrollbar{display:none}
     .pf-card{scroll-snap-align:start}
     .pf-card .ph{height:min(60vh,460px)}
-    .hero-inner{padding-top:110px}
+    #hero{padding-top:96px}
+    .hero-source{border-radius:28px}
   }
   @media (max-width:520px){.stats-grid{grid-template-columns:1fr}.foot-top{grid-template-columns:1fr}}
   :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
@@ -316,14 +311,15 @@
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-media" aria-hidden="true">
-    <img class="hero-image" data-scroll-source src="img/hero-03.jpg" alt="" />
-    <div class="hero-overlay" aria-hidden="true"></div>
-    <div class="wrap hero-inner">
+  <div class="wrap hero-inner">
+    <div class="hero-top">
       <span class="eyebrow">Meridian Real Estate</span>
       <div class="hero-foot">
         <span class="scroll-cue">Scroll</span>
       </div>
+    </div>
+    <div class="hero-source" id="hero-src" aria-hidden="true">
+      <img class="hero-image" src="img/hero-03.jpg" alt="" />
     </div>
   </div>
 </section>
@@ -334,7 +330,7 @@
     <span class="eyebrow" data-reveal data-settle-copy>Who we are</span>
     <p class="lede" data-mask data-settle-copy>A full-service firm dedicated to elevating communities and bringing transformative developments to life.</p>
     <div class="company-grid">
-      <div class="ph" data-scroll-target data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/hero-03.jpg')"></div>
+      <div class="ph" id="hero-dest" data-scroll-target data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/hero-03.jpg')"></div>
       <div class="company-copy" data-settle-copy>
         <p data-reveal>Meridian builds communities that transform neighborhoods. From identification to stabilization, we take every property through our own in-house platform — planning, capital, construction, and long-term management under one roof.</p>
         <p data-reveal>That ownership of the full lifecycle is what lets us move quickly in complex markets while holding an owner's standard of care from the first drawing to the last resident.</p>
@@ -691,40 +687,56 @@
 </script>
 
 <style>
-.hero-image[data-scroll-source]{position:fixed;top:0;left:0;width:100vw;height:100svh;object-fit:cover;z-index:55;transform-origin:0 0;border-radius:0;filter:grayscale(1) contrast(1.03) brightness(.82);will-change:transform,opacity,border-radius}
-[data-scroll-target]{opacity:0;transition:opacity .3s ease}
+.hero-float{position:fixed;top:0;left:0;width:0;height:0;object-fit:cover;z-index:55;pointer-events:none;opacity:0;visibility:hidden;transform-origin:0 0;border-radius:40px;filter:grayscale(1) contrast(1.03) brightness(.82);will-change:transform,opacity,border-radius}
+[data-scroll-target]{opacity:0;transition:opacity .35s ease}
 </style>
 
 <script>
 (function () {
-  var SETTLE_DISTANCE_VH = 120;
-  var END_RADIUS = 28;
-  var source = document.querySelector('[data-scroll-source]');
-  var target = document.querySelector('[data-scroll-target]');
+  var SETTLE_DISTANCE_VH = 126;
+  var START_RADIUS = 40;
+  var END_RADIUS = 40;
+  var sourceWrap = document.getElementById('hero-src');
+  var target = document.getElementById('hero-dest');
+  var sourceImg = sourceWrap && sourceWrap.querySelector('img');
   var copyEls = Array.prototype.slice.call(document.querySelectorAll('[data-settle-copy]'));
-  if (!source || !target) return;
+  if (!sourceWrap || !target || !sourceImg) return;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var coincideScrollY, endLeft, endTop, endScaleX, endScaleY;
+  var floating = document.createElement('img');
+  var coincideScrollY = 1;
+  var startRect, endRect;
+
+  floating.className = 'hero-float';
+  floating.src = sourceImg.currentSrc || sourceImg.src;
+  floating.alt = '';
+  floating.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(floating);
+
+  function easeInOutCubic(x) {
+    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  }
 
   function measure() {
-    var startW = source.offsetWidth;
-    var startH = source.offsetHeight;
+    startRect = sourceWrap.getBoundingClientRect();
     var targetRect = target.getBoundingClientRect();
     var targetDocTop = targetRect.top + window.scrollY;
     var maxScrollY = document.documentElement.scrollHeight - window.innerHeight;
     var desired = (SETTLE_DISTANCE_VH / 100) * window.innerHeight;
     coincideScrollY = Math.max(1, Math.min(desired, maxScrollY - 20));
-    endTop = targetDocTop - coincideScrollY;
-    endLeft = targetRect.left;
-    endScaleX = targetRect.width / startW;
-    endScaleY = targetRect.height / startH;
-    source.style.setProperty('--settle-left', endLeft + 'px');
-    source.style.setProperty('--settle-top', endTop + 'px');
-    source.style.setProperty('--settle-scale-x', endScaleX);
-    source.style.setProperty('--settle-scale-y', endScaleY);
-    source.style.setProperty('--settle-distance', coincideScrollY + 'px');
-    source.style.setProperty('--settle-radius-x', (END_RADIUS / endScaleX) + 'px');
-    source.style.setProperty('--settle-radius-y', (END_RADIUS / endScaleY) + 'px');
+    endRect = {
+      top: targetDocTop - coincideScrollY,
+      left: targetRect.left,
+      width: targetRect.width,
+      height: targetRect.height
+    };
+    floating.style.top = startRect.top + 'px';
+    floating.style.left = startRect.left + 'px';
+    floating.style.width = startRect.width + 'px';
+    floating.style.height = startRect.height + 'px';
+  }
+
+  function setTextVisibility(value) {
+    copyEls.forEach(function(el){ el.style.opacity = value; });
   }
 
   measure();
@@ -732,23 +744,11 @@
   window.addEventListener('resize', measure);
 
   if (prefersReducedMotion) {
-    source.style.display = 'none';
+    sourceWrap.style.opacity = 0;
     target.style.opacity = 1;
-    copyEls.forEach(function(el){ el.style.opacity = 1; });
+    setTextVisibility(1);
+    floating.remove();
     return;
-  }
-
-  function easeInOutCubic(x) {
-    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-  }
-
-  function applyReveal(t) {
-    var imageReveal = Math.max(0, Math.min(1, (t - 0.94) / 0.06));
-    var textReveal = t >= 1 ? 1 : 0;
-    target.style.opacity = imageReveal;
-    copyEls.forEach(function(el){ el.style.opacity = textReveal; });
-    source.style.opacity = 1 - imageReveal;
-    source.style.visibility = imageReveal >= 1 ? 'hidden' : 'visible';
   }
 
   var ticking = false;
@@ -756,15 +756,23 @@
     var scrollY = window.scrollY;
     var t = Math.max(0, Math.min(1, scrollY / coincideScrollY));
     var easedT = easeInOutCubic(t);
-    var left = endLeft * easedT;
-    var top = endTop * easedT;
-    var scaleX = 1 - (1 - endScaleX) * easedT;
-    var scaleY = 1 - (1 - endScaleY) * easedT;
-    var radiusX = (END_RADIUS * easedT) / scaleX;
-    var radiusY = (END_RADIUS * easedT) / scaleY;
-    source.style.transform = 'translate(' + left + 'px,' + top + 'px) scale(' + scaleX + ',' + scaleY + ')';
-    source.style.borderRadius = radiusX + 'px / ' + radiusY + 'px';
-    applyReveal(t);
+    var live = t > 0.002;
+    var reveal = Math.max(0, Math.min(1, (t - 0.9) / 0.1));
+    var left = startRect.left + (endRect.left - startRect.left) * easedT;
+    var top = startRect.top + (endRect.top - startRect.top) * easedT;
+    var width = startRect.width + (endRect.width - startRect.width) * easedT;
+    var height = startRect.height + (endRect.height - startRect.height) * easedT;
+    var radius = START_RADIUS + (END_RADIUS - START_RADIUS) * easedT;
+
+    sourceWrap.style.opacity = live ? 0 : 1;
+    floating.style.visibility = live ? 'visible' : 'hidden';
+    floating.style.opacity = live ? 1 - reveal : 0;
+    floating.style.transform = 'translate(' + (left - startRect.left) + 'px,' + (top - startRect.top) + 'px)';
+    floating.style.width = width + 'px';
+    floating.style.height = height + 'px';
+    floating.style.borderRadius = radius + 'px';
+    target.style.opacity = reveal;
+    setTextVisibility(t >= 1 ? 1 : 0);
     ticking = false;
   }
 
