@@ -315,7 +315,7 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-media" aria-hidden="true">
-    <img class="hero-image" src="img/hero-03.jpg" alt="" />
+    <img class="hero-image" data-scroll-source src="img/hero-03.jpg" alt="" />
     <div class="hero-overlay" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <span class="eyebrow">Meridian Real Estate</span>
@@ -337,7 +337,7 @@
     <span class="eyebrow" data-reveal>Who we are</span>
     <p class="lede" data-mask>A full-service firm dedicated to elevating communities and bringing transformative developments to life.</p>
     <div class="company-grid">
-      <div class="ph" data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/company.jpg')"></div>
+      <div class="ph" data-scroll-target data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/company.jpg')"></div>
       <div class="company-copy">
         <p data-reveal>Meridian builds communities that transform neighborhoods. From identification to stabilization, we take every property through our own in-house platform — planning, capital, construction, and long-term management under one roof.</p>
         <p data-reveal>That ownership of the full lifecycle is what lets us move quickly in complex markets while holding an owner's standard of care from the first drawing to the last resident.</p>
@@ -690,6 +690,107 @@
   ScrollTrigger.create({ trigger:'#stats', start:'top 72%', once:true, onEnter: function(){ document.querySelectorAll('.count').forEach(countUp); } });
 
   window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+
+<style>
+.hero-image[data-scroll-source]{position:fixed;top:0;left:0;width:100vw;height:100svh;object-fit:cover;z-index:55;transform-origin:0 0;border-radius:0;filter:grayscale(1) contrast(1.03) brightness(.82);will-change:transform,opacity,border-radius}
+[data-scroll-target]{opacity:0;transition:opacity .15s ease}
+</style>
+
+<script>
+(function () {
+  var SETTLE_DISTANCE_VH = 120;
+  var END_RADIUS = 2;
+  var source = document.querySelector('[data-scroll-source]');
+  var target = document.querySelector('[data-scroll-target]');
+  if (!source || !target) return;
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasNativeSupport = window.CSS && CSS.supports('(animation-timeline: scroll()) and (animation-range: 0% 100%)');
+  var coincideScrollY, endLeft, endTop, endScaleX, endScaleY;
+
+  function measure() {
+    var startW = source.offsetWidth;
+    var startH = source.offsetHeight;
+    var targetRect = target.getBoundingClientRect();
+    var targetDocTop = targetRect.top + window.scrollY;
+    var maxScrollY = document.documentElement.scrollHeight - window.innerHeight;
+    var desired = (SETTLE_DISTANCE_VH / 100) * window.innerHeight;
+    coincideScrollY = Math.max(1, Math.min(desired, maxScrollY - 20));
+    endTop = targetDocTop - coincideScrollY;
+    endLeft = targetRect.left;
+    endScaleX = targetRect.width / startW;
+    endScaleY = targetRect.height / startH;
+    source.style.setProperty('--settle-left', endLeft + 'px');
+    source.style.setProperty('--settle-top', endTop + 'px');
+    source.style.setProperty('--settle-scale-x', endScaleX);
+    source.style.setProperty('--settle-scale-y', endScaleY);
+    source.style.setProperty('--settle-distance', coincideScrollY + 'px');
+    source.style.setProperty('--settle-radius-x', (END_RADIUS / endScaleX) + 'px');
+    source.style.setProperty('--settle-radius-y', (END_RADIUS / endScaleY) + 'px');
+  }
+
+  measure();
+  window.addEventListener('load', measure);
+  window.addEventListener('resize', measure);
+
+  if (prefersReducedMotion) {
+    source.style.display = 'none';
+    target.style.opacity = 1;
+    return;
+  }
+
+  var revealTicking = false;
+  function updateReveal() {
+    target.style.opacity = window.scrollY >= coincideScrollY ? 1 : 0;
+    revealTicking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!revealTicking) {
+      requestAnimationFrame(updateReveal);
+      revealTicking = true;
+    }
+  });
+
+  updateReveal();
+
+  if (hasNativeSupport) {
+    var styleTag = document.createElement('style');
+    styleTag.textContent =
+      '@keyframes settle-shrink{99%{visibility:visible}to{transform:translate(var(--settle-left),var(--settle-top)) ' +
+      'scale(var(--settle-scale-x),var(--settle-scale-y));' +
+      'border-radius:var(--settle-radius-x) / var(--settle-radius-y);visibility:hidden}}' +
+      '[data-scroll-source]{animation:settle-shrink auto linear both;' +
+      'animation-timeline:scroll(root);animation-range:0px var(--settle-distance,600px)}';
+    document.head.appendChild(styleTag);
+    return;
+  }
+
+  var ticking = false;
+  function update() {
+    var scrollY = window.scrollY;
+    var t = Math.max(0, Math.min(1, scrollY / coincideScrollY));
+    var left = endLeft * t;
+    var top = endTop * t;
+    var scaleX = 1 - (1 - endScaleX) * t;
+    var scaleY = 1 - (1 - endScaleY) * t;
+    var radiusX = (END_RADIUS * t) / scaleX;
+    var radiusY = (END_RADIUS * t) / scaleY;
+    source.style.transform = 'translate(' + left + 'px,' + top + 'px) scale(' + scaleX + ',' + scaleY + ')';
+    source.style.borderRadius = radiusX + 'px / ' + radiusY + 'px';
+    source.style.visibility = scrollY >= coincideScrollY ? 'hidden' : 'visible';
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  });
+
+  update();
 })();
 </script>
 </body>
