@@ -143,7 +143,7 @@
   /* COMPANY */
   #company{padding:clamp(90px,14vh,150px) 0}
   .lede{font-weight:300;font-size:clamp(1.55rem,3.3vw,2.6rem);line-height:1.22;letter-spacing:-.02em;max-width:22ch;margin:26px 0 0;color:var(--ink)}
-  .eyebrow[data-settle-copy],.lede[data-settle-copy]{transition:opacity .2s ease}
+  .eyebrow[data-settle-copy],.lede[data-settle-copy],.company-copy[data-settle-copy]{transition:opacity .35s ease .12s}
   .company-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;margin-top:60px}
   .company-grid .ph{aspect-ratio:1/1}
   .company-grid .ph[data-scroll-target]{border-radius:28px;overflow:hidden}
@@ -335,7 +335,7 @@
     <p class="lede" data-mask data-settle-copy>A full-service firm dedicated to elevating communities and bringing transformative developments to life.</p>
     <div class="company-grid">
       <div class="ph" data-scroll-target data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/hero-03.jpg')"></div>
-      <div class="company-copy">
+      <div class="company-copy" data-settle-copy>
         <p data-reveal>Meridian builds communities that transform neighborhoods. From identification to stabilization, we take every property through our own in-house platform — planning, capital, construction, and long-term management under one roof.</p>
         <p data-reveal>That ownership of the full lifecycle is what lets us move quickly in complex markets while holding an owner's standard of care from the first drawing to the last resident.</p>
       </div>
@@ -739,11 +739,12 @@
   }
 
   function applyReveal(t) {
-    var reveal = Math.max(0, Math.min(1, (t - 0.985) / 0.015));
-    target.style.opacity = reveal;
-    copyEls.forEach(function(el){ el.style.opacity = reveal; });
-    source.style.opacity = 1 - reveal;
-    source.style.visibility = reveal >= 1 ? 'hidden' : 'visible';
+    var imageReveal = Math.max(0, Math.min(1, (t - 0.992) / 0.008));
+    var textReveal = t >= 1 ? 1 : 0;
+    target.style.opacity = imageReveal;
+    copyEls.forEach(function(el){ el.style.opacity = textReveal; });
+    source.style.opacity = 1 - imageReveal;
+    source.style.visibility = imageReveal >= 1 ? 'hidden' : 'visible';
   }
 
   var ticking = false;
