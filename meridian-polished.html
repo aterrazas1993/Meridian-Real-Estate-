@@ -692,7 +692,7 @@
 
 <style>
 .hero-image[data-scroll-source]{position:fixed;top:0;left:0;width:100vw;height:100svh;object-fit:cover;z-index:55;transform-origin:0 0;border-radius:0;filter:grayscale(1) contrast(1.03) brightness(.82);will-change:transform,opacity,border-radius}
-[data-scroll-target]{opacity:0;transition:opacity .15s ease}
+[data-scroll-target]{opacity:0;transition:opacity .3s ease}
 </style>
 
 <script>
@@ -738,8 +738,12 @@
     return;
   }
 
+  function easeInOutCubic(x) {
+    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  }
+
   function applyReveal(t) {
-    var imageReveal = Math.max(0, Math.min(1, (t - 0.992) / 0.008));
+    var imageReveal = Math.max(0, Math.min(1, (t - 0.94) / 0.06));
     var textReveal = t >= 1 ? 1 : 0;
     target.style.opacity = imageReveal;
     copyEls.forEach(function(el){ el.style.opacity = textReveal; });
@@ -751,12 +755,13 @@
   function update() {
     var scrollY = window.scrollY;
     var t = Math.max(0, Math.min(1, scrollY / coincideScrollY));
-    var left = endLeft * t;
-    var top = endTop * t;
-    var scaleX = 1 - (1 - endScaleX) * t;
-    var scaleY = 1 - (1 - endScaleY) * t;
-    var radiusX = (END_RADIUS * t) / scaleX;
-    var radiusY = (END_RADIUS * t) / scaleY;
+    var easedT = easeInOutCubic(t);
+    var left = endLeft * easedT;
+    var top = endTop * easedT;
+    var scaleX = 1 - (1 - endScaleX) * easedT;
+    var scaleY = 1 - (1 - endScaleY) * easedT;
+    var radiusX = (END_RADIUS * easedT) / scaleX;
+    var radiusY = (END_RADIUS * easedT) / scaleY;
     source.style.transform = 'translate(' + left + 'px,' + top + 'px) scale(' + scaleX + ',' + scaleY + ')';
     source.style.borderRadius = radiusX + 'px / ' + radiusY + 'px';
     applyReveal(t);
