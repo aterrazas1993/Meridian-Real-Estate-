@@ -127,8 +127,8 @@
   #hero{position:relative;min-height:100svh;background:transparent;color:var(--white);overflow:hidden}
   .hero-media{position:absolute;inset:0;z-index:0}
   .hero-image{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.03) brightness(.82)}
-  .hero-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,20,20,.08),transparent 35%,rgba(20,20,20,.18))}
-  .hero-overlay::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 64px),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 64px);mask-image:radial-gradient(120% 100% at 50% 100%,#000,transparent 75%)}
+  .hero-overlay{display:none}
+  .hero-overlay::before{display:none}
   .hero-inner{position:absolute;inset:0;z-index:2;width:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,8vh,90px);padding-top:120px;will-change:transform,opacity}
   .hero h1{font-size:clamp(2.9rem,8.4vw,7rem);font-weight:400;letter-spacing:-.03em;margin:24px 0 0;max-width:17ch}
   .hero h1 .line{display:block;overflow:hidden}
@@ -143,9 +143,10 @@
   /* COMPANY */
   #company{padding:clamp(90px,14vh,150px) 0}
   .lede{font-weight:300;font-size:clamp(1.55rem,3.3vw,2.6rem);line-height:1.22;letter-spacing:-.02em;max-width:22ch;margin:26px 0 0;color:var(--ink)}
-  .lede[data-settle-copy]{transition:opacity .2s ease}
+  .eyebrow[data-settle-copy],.lede[data-settle-copy]{transition:opacity .2s ease}
   .company-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;margin-top:60px}
   .company-grid .ph{aspect-ratio:1/1}
+  .company-grid .ph[data-scroll-target]{border-radius:28px;overflow:hidden}
   .company-copy p{color:var(--grey);font-size:16.5px;max-width:52ch}
   .company-copy p+p{margin-top:20px}
 
@@ -330,7 +331,7 @@
 <!-- COMPANY -->
 <section id="company">
   <div class="wrap">
-    <span class="eyebrow" data-reveal>Who we are</span>
+    <span class="eyebrow" data-reveal data-settle-copy>Who we are</span>
     <p class="lede" data-mask data-settle-copy>A full-service firm dedicated to elevating communities and bringing transformative developments to life.</p>
     <div class="company-grid">
       <div class="ph" data-scroll-target data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/hero-03.jpg')"></div>
@@ -700,10 +701,9 @@
   var END_RADIUS = 28;
   var source = document.querySelector('[data-scroll-source]');
   var target = document.querySelector('[data-scroll-target]');
-  var copy = document.querySelector('[data-settle-copy]');
+  var copyEls = Array.prototype.slice.call(document.querySelectorAll('[data-settle-copy]'));
   if (!source || !target) return;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var hasNativeSupport = window.CSS && CSS.supports('(animation-timeline: scroll()) and (animation-range: 0% 100%)');
   var coincideScrollY, endLeft, endTop, endScaleX, endScaleY;
 
   function measure() {
@@ -734,36 +734,16 @@
   if (prefersReducedMotion) {
     source.style.display = 'none';
     target.style.opacity = 1;
-    if (copy) copy.style.opacity = 1;
+    copyEls.forEach(function(el){ el.style.opacity = 1; });
     return;
   }
 
-  var revealTicking = false;
-  function updateReveal() {
-    target.style.opacity = window.scrollY >= coincideScrollY ? 1 : 0;
-    if (copy) copy.style.opacity = window.scrollY >= coincideScrollY ? 1 : 0;
-    revealTicking = false;
-  }
-
-  window.addEventListener('scroll', function () {
-    if (!revealTicking) {
-      requestAnimationFrame(updateReveal);
-      revealTicking = true;
-    }
-  });
-
-  updateReveal();
-
-  if (hasNativeSupport) {
-    var styleTag = document.createElement('style');
-    styleTag.textContent =
-      '@keyframes settle-shrink{99%{visibility:visible}to{transform:translate(var(--settle-left),var(--settle-top)) ' +
-      'scale(var(--settle-scale-x),var(--settle-scale-y));' +
-      'border-radius:var(--settle-radius-x) / var(--settle-radius-y);visibility:hidden}}' +
-      '[data-scroll-source]{animation:settle-shrink auto linear both;' +
-      'animation-timeline:scroll(root);animation-range:0px var(--settle-distance,600px)}';
-    document.head.appendChild(styleTag);
-    return;
+  function applyReveal(t) {
+    var reveal = Math.max(0, Math.min(1, (t - 0.985) / 0.015));
+    target.style.opacity = reveal;
+    copyEls.forEach(function(el){ el.style.opacity = reveal; });
+    source.style.opacity = 1 - reveal;
+    source.style.visibility = reveal >= 1 ? 'hidden' : 'visible';
   }
 
   var ticking = false;
@@ -778,8 +758,7 @@
     var radiusY = (END_RADIUS * t) / scaleY;
     source.style.transform = 'translate(' + left + 'px,' + top + 'px) scale(' + scaleX + ',' + scaleY + ')';
     source.style.borderRadius = radiusX + 'px / ' + radiusY + 'px';
-    source.style.visibility = scrollY >= coincideScrollY ? 'hidden' : 'visible';
-    if (copy) copy.style.opacity = scrollY >= coincideScrollY ? 1 : 0;
+    applyReveal(t);
     ticking = false;
   }
 
