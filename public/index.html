@@ -627,14 +627,19 @@
   }
 
   /* ANIMATED MODE */
-  gsap.registerPlugin(ScrollTrigger);
+  const lenis = new Lenis({});
 
-  var lenis = null;
-  if(window.Lenis){
-    lenis = new Lenis({ lerp:0.1, wheelMultiplier:1, smoothWheel:true }); // stock studio-freight feel
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
-    gsap.ticker.lagSmoothing(0);
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  if (typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+    lenis.on("scroll", (e) => {
+      ScrollTrigger.update();
+    });
   }
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click', function(e){
