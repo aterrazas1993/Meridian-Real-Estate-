@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meridian — Real Estate Development</title>
+<title>Cutting Edge Services LLC — Landscape, Hardscape &amp; Artificial Turf</title>
+<meta name="description" content="Cutting Edge Services LLC: landscape design, hardscape, artificial turf, fire features and putting greens in Brazoria County. Call (979) 388-5564 for a free quote.">
+<link rel="icon" href="img/cutting-edge/logo.png">
 <!--
   ============================================================
   MERIDIAN — typography + palette matched to alre.com's system.
@@ -43,7 +45,7 @@
 <script>
   (function(){
     var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    if(window.gsap && window.ScrollTrigger && !reduce){ document.documentElement.classList.add('anim'); }
+    if(window.gsap && window.ScrollTrigger && window.Lenis && !reduce){ document.documentElement.classList.add('anim'); }
   })();
 </script>
 
@@ -140,10 +142,10 @@
   /* HERO */
   #hero{position:relative;height:100svh;min-height:680px;color:var(--white);overflow:visible}
   .hero-inner{position:relative;z-index:60;height:100%;pointer-events:none}
-  .hero-top{position:absolute;z-index:3;left:0;right:0;bottom:clamp(28px,5vh,56px);display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+  .hero-top{position:absolute;padding-inline:var(--gutter);width:100%;z-index:3;left:0;right:0;bottom:clamp(28px,5vh,56px);display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
   .hero-source{position:absolute;inset:0 50%;width:100vw;margin-left:-50vw;overflow:hidden;background:#161616}
   .hero-image{display:block;width:100%;height:100%;object-fit:cover;filter:contrast(1.03) brightness(.82)}
-  .hero-copy{max-width:640px;will-change:opacity;pointer-events:none}
+  .hero-copy{width:100%;max-width:640px;will-change:opacity;pointer-events:none}
   #hero h1{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:400;letter-spacing:-.03em;margin:20px 0 0;max-width:17ch}
   #hero h1 .line{display:block;overflow:hidden}
   #hero h1 .line-in{display:block}
@@ -187,7 +189,7 @@
   /* BRAND */
   #brand{position:relative;z-index:0;color:var(--white);padding:clamp(100px,16vh,180px) 0;overflow:hidden;background:var(--ink)}
   #brand .ph.bg{position:absolute;inset:-8% 0;height:116%;z-index:0;
-    background:linear-gradient(180deg,rgba(15,15,15,.72),rgba(15,15,15,.82)),url('img/brand.jpg') center/cover no-repeat,linear-gradient(120deg,#242424,#101010);will-change:transform}
+    background:linear-gradient(180deg,rgba(15,15,15,.72),rgba(15,15,15,.82)),url('img/cutting-edge/pavers.jpg') center/cover no-repeat,linear-gradient(120deg,#242424,#101010);will-change:transform}
   #brand .ph.bg::before,#brand .ph.bg::after{display:none}
   .brand-inner{position:relative;z-index:2;max-width:760px}
   .brand-inner h2{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:400;margin:22px 0 26px}
@@ -306,10 +308,11 @@
 .ph{background-size:cover;background-position:center;background-repeat:no-repeat;filter:contrast(1.04)}
 .ph::before,.ph::after{content:none !important;display:none !important}
 </style>
+<style>.logo{letter-spacing:.08em;font-size:18px}.brand-inner .link{margin-top:24px;color:white}.hero-copy p{max-width:44ch}@media(max-width:520px){.logo{font-size:15px;letter-spacing:.05em}}</style>
 </head>
 <body class="loading">
 <noscript><style>.preloader{display:none!important}body{overflow:visible!important}</style></noscript>
-<div class="preloader" aria-hidden="true"><span class="preloader-mark">Meridian</span></div>
+<div class="preloader" aria-hidden="true"><span class="preloader-mark">Cutting Edge</span></div>
 <a href="#company" class="skip-link">Skip to content</a>
 
 <div id="progress" aria-hidden="true"></div>
@@ -317,13 +320,13 @@
 <!-- NAV -->
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="#hero" class="logo">Meridian</a>
+    <a href="#hero" class="logo">Cutting Edge</a>
     <nav class="nav-links" id="navLinks" aria-label="Primary">
       <a href="#hero">Home</a>
-      <a href="#company">Company</a>
-      <a href="#capabilities">Capabilities</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#contact" class="btn">Contact</a>
+      <a href="#company">About</a>
+      <a href="#capabilities">Services</a>
+      <a href="#portfolio">Our work</a>
+      <a href="#contact" class="btn">Get a quote</a>
     </nav>
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </div>
@@ -334,21 +337,19 @@
   <div class="wrap hero-inner">
     <div class="hero-top">
       <div class="hero-copy">
-        <span class="eyebrow">Meridian Real Estate</span>
+        <span class="eyebrow">Cutting Edge Services LLC</span>
         <h1>
-          <span class="line"><span class="line-in">Driven by vision.</span></span>
-          <span class="line"><span class="line-in"><em>Defined</em> by quality.</span></span>
+          <span class="line"><span class="line-in">Modern landscapes.</span></span>
+          <span class="line"><span class="line-in"><em>Made</em> for living.</span></span>
         </h1>
-        <p>A vertically integrated developer building residential and mixed-use communities in the neighborhoods where opportunity and need converge.</p>
+        <p>Landscape, hardscape, and design. Thoughtful outdoor spaces, brought to life by Cutting Edge Services LLC.</p>
       </div>
       <div class="hero-foot">
         <span class="scroll-cue">Scroll</span>
       </div>
     </div>
     <div class="hero-source" id="hero-src" aria-hidden="true">
-      <video class="hero-image" autoplay muted loop playsinline preload="auto" poster="img/hero-03.jpg">
-        <source src="media/meridian-hero.mp4" type="video/mp4" />
-      </video>
+      <img class="hero-image" src="img/cutting-edge/hero.jpg" alt="Outdoor landscape by Cutting Edge Services" fetchpriority="high">
     </div>
   </div>
 </section>
@@ -357,12 +358,12 @@
 <section id="company">
   <div class="wrap">
     <span class="eyebrow" data-reveal data-settle-copy>Who we are</span>
-    <p class="lede" data-mask data-settle-copy>A full-service firm dedicated to elevating communities and bringing transformative developments to life.</p>
+    <p class="lede" data-mask data-settle-copy>For landscape, hardscape, and design, there’s only one name.</p>
     <div class="company-grid">
-      <div class="ph" id="hero-dest" data-scroll-target data-label="City / evening exterior" style="aspect-ratio:1/1;background-image:url('img/hero-03.jpg')"></div>
+      <div class="ph" id="hero-dest" data-scroll-target data-label="Cutting Edge outdoor landscape" style="aspect-ratio:1/1;background-image:url('img/cutting-edge/hero.jpg')"></div>
       <div class="company-copy" data-settle-copy>
-        <p data-reveal>Meridian builds communities that transform neighborhoods. From identification to stabilization, we take every property through our own in-house platform — planning, capital, construction, and long-term management under one roof.</p>
-        <p data-reveal>That ownership of the full lifecycle is what lets us move quickly in complex markets while holding an owner's standard of care from the first drawing to the last resident.</p>
+        <p data-reveal>Cutting Edge Services LLC helps redesign and install your dream outdoor space, putting you first in every design and installation. From a welcoming walkway to a greener lawn, we bring your ideas to life.</p>
+        <p data-reveal>Not sure where to start? Give us a call. We’ll walk you through our process and help you explore the possibilities for your home. Free quotes are available.</p>
       </div>
     </div>
   </div>
@@ -370,149 +371,42 @@
 
 <!-- STATS -->
 <section id="stats">
-  <div class="wrap">
-    <div class="stats-grid">
-      <div class="stat" data-reveal><div class="num"><span class="count" data-to="25">0</span><span class="suf">+</span></div><div class="lbl">Years in business</div></div>
-      <div class="stat" data-reveal><div class="num"><span class="count" data-to="1000">0</span><span class="suf">+</span></div><div class="lbl">Residential units developed</div></div>
-      <div class="stat" data-reveal><div class="num"><span class="suf">$</span><span class="count" data-to="500">0</span><span class="suf">M+</span></div><div class="lbl">In real estate investment</div></div>
-      <div class="stat" data-reveal><div class="num"><span class="count" data-to="100">0</span><span class="suf">+</span></div><div class="lbl">Transactions closed</div></div>
-    </div>
-  </div>
+<div class="wrap"><div class="stats-grid"><div class="stat" data-reveal><div class="num" style="font-size:clamp(1.7rem,3vw,2.5rem)">Design</div><div class="lbl">Your vision, thoughtfully planned</div></div><div class="stat" data-reveal><div class="num" style="font-size:clamp(1.7rem,3vw,2.5rem)">Landscape</div><div class="lbl">Curb appeal for your home</div></div><div class="stat" data-reveal><div class="num" style="font-size:clamp(1.7rem,3vw,2.5rem)">Hardscape</div><div class="lbl">Pavers, walkways &amp; more</div></div><div class="stat" data-reveal><div class="num" style="font-size:clamp(1.7rem,3vw,2.5rem)">Turf</div><div class="lbl">Green spaces with less upkeep</div></div></div></div>
 </section>
 
 <!-- CAPABILITIES -->
 <section id="capabilities">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <span class="eyebrow" data-reveal>What we do</span>
-        <h2 data-mask style="margin-top:18px">Capabilities</h2>
-      </div>
-      <p data-reveal>One team, one standard of accountability — from the first acquisition through decades of operation.</p>
-    </div>
-    <div class="cap-grid">
-      <div class="cap" data-reveal><span class="idx">01</span><h3>Investment</h3><p>We identify opportunity where others see complexity — moving quickly in supply-constrained markets with the in-house expertise to evaluate, structure, and close.</p><div class="ph" data-label="Investment" style="background-image:url('img/cap-investment.jpg')"></div></div>
-      <div class="cap" data-reveal><span class="idx">02</span><h3>Development</h3><p>From entitlements to delivery, we lead every project hands-on — navigating complex approvals and building communities that set a new standard for their markets.</p><div class="ph" data-label="Development" style="background-image:url('img/cap-development.jpg')"></div></div>
-      <div class="cap" data-reveal><span class="idx">03</span><h3>Construction</h3><p>A senior construction executive on every project, with full-time on-site oversight from predevelopment through turnover. No gaps in accountability.</p><div class="ph" data-label="Construction" style="background-image:url('img/cap-construction.jpg')"></div></div>
-      <div class="cap" data-reveal><span class="idx">04</span><h3>Management</h3><p>We manage every asset we build, staying accountable for resident experience and long-term performance long after construction closes.</p><div class="ph" data-label="Management" style="background-image:url('img/cap-management.jpg')"></div></div>
-    </div>
-  </div>
+<div class="wrap"><div class="sec-head"><div><span class="eyebrow" data-reveal>What we do</span><h2 data-mask style="margin-top:18px">Our services</h2></div><p data-reveal>From the first design to the finishing details, your outdoor space starts here.</p></div><div class="cap-grid"><div class="cap" data-reveal><span class="idx">01</span><h3>Landscape</h3><p>Give your home some curb appeal. We help you understand your landscape and keep your outdoor space looking its best through the Texas seasons.</p><div class="ph" role="img" aria-label="Landscape" style="background-image:url('img/cutting-edge/landscape.jpg')" ></div></div><div class="cap" data-reveal><span class="idx">02</span><h3>Hardscape &amp; stonework</h3><p>Paver patios, retaining walls, concrete, pergolas, and walkways. Premium materials and customized plans bring modern elegance to your property.</p><div class="ph" role="img" aria-label="Hardscape &amp; stonework" style="background-image:url('img/cutting-edge/hardscape.png')" ></div></div><div class="cap" data-reveal><span class="idx">03</span><h3>Artificial turf</h3><p>A green lawn with less upkeep. Our professionally installed artificial grass reduces the need for watering and mowing, giving you more time to enjoy your yard.</p><div class="ph" role="img" aria-label="Artificial turf" style="background-image:url('img/cutting-edge/turf.png')" ></div></div><div class="cap" data-reveal><span class="idx">04</span><h3>Design &amp; outdoor features</h3><p>Start with a blueprint, then make it yours. Explore custom design, fire features, in-ground lighting, and putting greens for your outdoor space.</p><div class="ph" role="img" aria-label="Design &amp; outdoor features" style="background-image:url('img/cutting-edge/design.png')" ></div></div></div></div>
 </section>
 
 <!-- BRAND -->
 <section id="brand">
-  <div class="ph bg" aria-hidden="true"></div>
-  <div class="wrap brand-inner">
-    <span class="eyebrow" data-reveal>Our residential brand</span>
-    <h2 data-mask>The <em>Vantage</em> collection.</h2>
-    <p data-reveal>Vantage is Meridian's signature residential brand — a growing collection of design-forward communities built in the region's most sought-after transit neighborhoods. Each property is shaped by its location and backed by our full in-house platform: thoughtfully designed, expertly built, and managed with an owner's accountability. Vantage sets a new bar for what renters can expect from a neighborhood and a home.</p>
-  </div>
+<div class="ph bg" aria-hidden="true"></div><div class="wrap brand-inner"><span class="eyebrow" data-reveal>Hardscape &amp; stonework</span><h2 data-mask>Pavers, walkways, <em>&amp; more.</em></h2><p data-reveal>Cutting Edge Services LLC can get it done. We help redesign and install your dream walkway, putting you first in all our designs and installs. Top-quality pavers, in-ground lighting, and a commitment to the details.</p><a class="link" href="#contact">Plan your outdoor space</a></div>
 </section>
 
 <!-- PORTFOLIO -->
 <section id="portfolio">
-  <div class="pf-pin" id="pfPin">
-    <div class="wrap pf-head">
-      <span class="eyebrow" data-reveal>Selected work</span>
-      <h2 data-mask style="margin-top:16px">Our portfolio</h2>
-    </div>
-    <div class="pf-track" id="pfTrack">
-      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-riverside.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Riverside</span><span class="pf-tag">Residential · 220 units</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-harbor.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Harbor</span><span class="pf-tag">Mixed-use</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-center.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Center</span><span class="pf-tag">6-phase · Downtown</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-mill.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Mill District</span><span class="pf-tag">Residential · 72 units</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-hq.jpg')"></div><div class="pf-meta"><span class="pf-name">Meridian HQ</span><span class="pf-tag">Commercial</span></div></article>
-      <article class="pf-card" data-reveal><div class="ph" style="background-image:url('img/pf-depot.jpg')"></div><div class="pf-meta"><span class="pf-name">Vantage Depot</span><span class="pf-tag">Transit-oriented</span></div></article>
-    </div>
-  </div>
-  <div class="wrap">
-    <p class="about-copy" data-reveal><b>Meridian</b> is a full-service real estate company focused on the acquisition, development, construction and management of residential, mixed-use, and commercial properties in markets where opportunity and community need align. Since its founding, Meridian has built a reputation for unlocking value in complex, transitional markets — delivering communities that transform neighborhoods, activate street-level retail, and raise the standard for living and working across the region.</p>
-  </div>
+<div class="pf-pin" id="pfPin"><div class="wrap pf-head"><span class="eyebrow" data-reveal>Selected work</span><h2 data-mask style="margin-top:16px">Outdoor possibilities</h2></div><div class="pf-track" id="pfTrack"><article class="pf-card" data-reveal><div class="ph" role="img" aria-label="Landscape" style="background-image:url('img/cutting-edge/landscape.jpg')" ></div><div class="pf-meta"><span class="pf-name">Landscape</span><span class="pf-tag">Curb appeal</span></div></article><article class="pf-card" data-reveal><div class="ph" role="img" aria-label="Fire features" style="background-image:url('img/cutting-edge/fire.png')" ></div><div class="pf-meta"><span class="pf-name">Fire features</span><span class="pf-tag">Outdoor living</span></div></article><article class="pf-card" data-reveal><div class="ph" role="img" aria-label="Artificial turf" style="background-image:url('img/cutting-edge/turf.png')" ></div><div class="pf-meta"><span class="pf-name">Artificial turf</span><span class="pf-tag">Low-maintenance lawns</span></div></article><article class="pf-card" data-reveal><div class="ph" role="img" aria-label="Walkways" style="background-image:url('img/cutting-edge/hardscape.png')" ></div><div class="pf-meta"><span class="pf-name">Walkways</span><span class="pf-tag">Hardscape &amp; stonework</span></div></article><article class="pf-card" data-reveal><div class="ph" role="img" aria-label="Putting greens" style="background-image:url('img/cutting-edge/putting.png')" ></div><div class="pf-meta"><span class="pf-name">Putting greens</span><span class="pf-tag">Made for play</span></div></article><article class="pf-card" data-reveal><div class="ph" role="img" aria-label="Pavers" style="background-image:url('img/cutting-edge/pavers.jpg')" ></div><div class="pf-meta"><span class="pf-name">Pavers</span><span class="pf-tag">Patios &amp; paths</span></div></article></div></div><div class="wrap"><p class="about-copy" data-reveal><b>Cutting Edge Services LLC</b> brings landscape, hardscape, and artificial turf together to create outdoor spaces you can enjoy. Explore work and services from our portfolio, and imagine the possibilities for your own home. We’d love to add your home to our growing portfolio.</p></div>
 </section>
 
 <!-- CASES -->
 <section id="cases">
-  <div class="wrap">
-    <span class="eyebrow" data-reveal>Proof of platform</span>
-    <h2 data-mask style="font-size:clamp(2.2rem,5vw,3.4rem);font-weight:400;margin:18px 0 8px">Redevelopment case studies</h2>
-
-    <article class="case">
-      <div class="case-media"><div class="ph" data-label="Vantage Center" style="background-image:url('img/case-center.jpg')"></div></div>
-      <div class="case-body" data-reveal>
-        <span class="eyebrow">Vantage Center · Downtown</span>
-        <h3>A six-phase mixed-use transformation</h3>
-        <p>460 residential units and 15,000 square feet of retail delivered through a public–private initiative — turning an underused corridor into a pedestrian-friendly community hub and our most ambitious proof of platform to date.</p>
-        <span class="link link-disabled" aria-disabled="true">Coming soon</span>
-      </div>
-    </article>
-
-    <article class="case">
-      <div class="case-media"><div class="ph" data-label="Vantage Harbor" style="background-image:url('img/case-harbor.jpg')"></div></div>
-      <div class="case-body" data-reveal>
-        <span class="eyebrow">Vantage Harbor</span>
-        <h3>Design-forward living, transit-connected</h3>
-        <p>A 100-unit luxury residential community developed through a public–private initiative, bringing rental living and ground-floor retail to a transit-connected neighborhood ready for reinvestment.</p>
-        <span class="link link-disabled" aria-disabled="true">Coming soon</span>
-      </div>
-    </article>
-
-    <article class="case">
-      <div class="case-media"><div class="ph" data-label="Vantage Mill District" style="background-image:url('img/case-mill.jpg')"></div></div>
-      <div class="case-body" data-reveal>
-        <span class="eyebrow">Vantage Mill District</span>
-        <h3>Historic character, modern standard</h3>
-        <p>A 72-unit, historically inspired community that draws on its district's rich character while delivering modern amenities and a new standard of quality to one of the region's most dynamic urban neighborhoods.</p>
-        <span class="link link-disabled" aria-disabled="true">Coming soon</span>
-      </div>
-    </article>
-  </div>
+<div class="wrap"><span class="eyebrow" data-reveal>Made for your home</span><h2 data-mask style="font-size:clamp(2.2rem,5vw,3.4rem);font-weight:400;margin:18px 0 8px">Your space. Your possibilities.</h2><article class="case"><div class="case-media"><div class="ph" role="img" aria-label="Landscape" style="background-image:url('img/cutting-edge/before-after.jpg')" ></div></div><div class="case-body" data-reveal><span class="eyebrow">Landscape</span><h3>Give your home some curb appeal.</h3><p>Not sure where to begin? We can assist you with your landscape and give you a clear breakdown of our process. Get in touch for a free quote.</p><a class="link" href="#contact">Get a free quote</a></div></article><article class="case"><div class="case-media"><div class="ph" role="img" aria-label="Artificial turf" style="background-image:url('img/cutting-edge/turf.png')" ></div></div><div class="case-body" data-reveal><span class="eyebrow">Artificial turf</span><h3>Always green. Always the perfect height.</h3><p>Spend less time mowing and more time enjoying your backyard. Artificial turf offers a green appearance year-round with less lawn maintenance.</p><a class="link" href="#contact">Get a free quote</a></div></article><article class="case"><div class="case-media"><div class="ph" role="img" aria-label="Hardscape &amp; stonework" style="background-image:url('img/cutting-edge/design.png')" ></div></div><div class="case-body" data-reveal><span class="eyebrow">Hardscape &amp; stonework</span><h3>Let’s begin with a blueprint.</h3><p>A clear design helps you visualize the layout, guides installation, and keeps everyone working toward the same result. Explore pavers, retaining walls, concrete, pergolas, and fire features.</p><a class="link" href="#contact">Get a free quote</a></div></article></div>
 </section>
 
 <!-- CONTEXT / PINNED GALLERY -->
 <section id="context">
-  <div class="wrap">
-    <span class="eyebrow" data-reveal>In context</span>
-    <h2 data-mask>A residential community, <em>in place.</em></h2>
-    <div class="slider">
-      <div class="swiper" id="contextSwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><div class="ph" data-label="Lobby" style="background-image:url('img/ctx-lobby.jpg')"></div><div class="s-lbl">01 — Arrival lobby</div></div>
-          <div class="swiper-slide"><div class="ph" data-label="Great hall" style="background-image:url('img/ctx-hall.jpg')"></div><div class="s-lbl">02 — Resident hall</div></div>
-          <div class="swiper-slide"><div class="ph" data-label="Streetscape" style="background-image:url('img/ctx-street.jpg')"></div><div class="s-lbl">03 — Streetscape &amp; retail</div></div>
-          <div class="swiper-slide"><div class="ph" data-label="Rooftop" style="background-image:url('img/ctx-rooftop.jpg')"></div><div class="s-lbl">04 — Rooftop terrace</div></div>
-          <div class="swiper-slide"><div class="ph" data-label="Residence" style="background-image:url('img/ctx-residence.jpg')"></div><div class="s-lbl">05 — Residence interior</div></div>
-        </div>
-      </div>
-      <div class="slider-ctrl">
-        <button id="prev" aria-label="Previous">←</button>
-        <button id="next" aria-label="Next">→</button>
-      </div>
-    </div>
-  </div>
+<div class="wrap"><span class="eyebrow" data-reveal>The finishing touches</span><h2 data-mask>Outdoor living, <em>in detail.</em></h2><div class="slider"><div class="swiper" id="contextSwiper"><div class="swiper-wrapper"><div class="swiper-slide"><div class="ph" role="img" aria-label="Landscape" style="background-image:url('img/cutting-edge/landscape.jpg')" ></div><div class="s-lbl">01 — Landscape</div></div><div class="swiper-slide"><div class="ph" role="img" aria-label="Fire features" style="background-image:url('img/cutting-edge/fire.png')" ></div><div class="s-lbl">02 — Fire features</div></div><div class="swiper-slide"><div class="ph" role="img" aria-label="Artificial turf" style="background-image:url('img/cutting-edge/turf.png')" ></div><div class="s-lbl">03 — Artificial turf</div></div><div class="swiper-slide"><div class="ph" role="img" aria-label="Walkways" style="background-image:url('img/cutting-edge/hardscape.png')" ></div><div class="s-lbl">04 — Walkways</div></div><div class="swiper-slide"><div class="ph" role="img" aria-label="Putting greens" style="background-image:url('img/cutting-edge/putting.png')" ></div><div class="s-lbl">05 — Putting greens</div></div></div></div><div class="slider-ctrl"><button id="prev" aria-label="Previous project">←</button><button id="next" aria-label="Next project">→</button></div></div></div>
 </section>
 
 <!-- NEWS -->
 <section id="news">
-  <div class="wrap">
-    <span class="eyebrow" data-reveal>Newsroom</span>
-    <h2 data-mask style="font-size:clamp(2.2rem,5vw,3.4rem);font-weight:400;margin:18px 0 8px">News</h2>
-    <p data-reveal style="color:var(--grey);max-width:44ch">Company announcements, project milestones, and market perspectives from the Meridian team.</p>
-    <div class="news-grid">
-      <article class="article" data-reveal><div class="ph" data-label="Leasing launch" style="background-image:url('img/news-leasing.jpg')"></div><span class="src">Regional Business</span><h3>Leasing launches for 85 luxury apartments downtown</h3><span class="link link-disabled" aria-disabled="true">Archive soon</span></article>
-      <article class="article" data-reveal><div class="ph" data-label="New project" style="background-image:url('img/news-project.jpg')"></div><span class="src">Real Estate Weekly</span><h3>Meridian debuts 100-unit rental as latest Vantage project</h3><span class="link link-disabled" aria-disabled="true">Archive soon</span></article>
-      <article class="article" data-reveal><div class="ph" data-label="Phase complete" style="background-image:url('img/news-phase.jpg')"></div><span class="src">Urban Development News</span><h3>Fifth residential phase reaches completion at Vantage Center</h3><span class="link link-disabled" aria-disabled="true">Archive soon</span></article>
-    </div>
-  </div>
+<div class="wrap"><span class="eyebrow" data-reveal>Make it your own</span><h2 data-mask style="font-size:clamp(2.2rem,5vw,3.4rem);font-weight:400;margin:18px 0 8px">More ways to enjoy outside.</h2><div class="news-grid"><article class="article" data-reveal><div class="ph" role="img" aria-label="Fire features" style="background-image:url('img/cutting-edge/fire.png')" ></div><span class="src">Fire features</span><h3>A gathering place in your own backyard.</h3><a class="link" href="#contact">Explore your options</a></article><article class="article" data-reveal><div class="ph" role="img" aria-label="Putting greens" style="background-image:url('img/cutting-edge/putting.png')" ></div><span class="src">Putting greens</span><h3>Bring the putting green home.</h3><a class="link" href="#contact">Explore your options</a></article><article class="article" data-reveal><div class="ph" role="img" aria-label="Pavers and walkways" style="background-image:url('img/cutting-edge/pavers.jpg')" ></div><span class="src">Pavers &amp; walkways</span><h3>A new path to your dream outdoor space.</h3><a class="link" href="#contact">Explore your options</a></article></div></div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="wrap">
-    <span class="eyebrow" data-reveal>Partnership</span>
-    <h2 data-mask>Let's build with intention.</h2>
-    <p data-reveal>We engage with partners who share a long-term view of real estate — from municipalities and lenders to investors and consultants.</p>
-    <a href="mailto:hello@meridian.example" class="btn btn-lg" data-reveal>Partner with Meridian</a>
-  </div>
+<div class="wrap"><span class="eyebrow" data-reveal>Free quotes available</span><h2 data-mask>Let’s create your outdoor space.</h2><p data-reveal>Tell us what you have in mind. From landscaping and turf to a custom hardscape design, Cutting Edge Services LLC can help you take the next step.</p><a href="tel:+19793885564" class="btn btn-lg" data-reveal>Call (979) 388-5564</a></div>
 </section>
 
 <!-- FOOTER -->
@@ -520,14 +414,14 @@
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <div class="foot-logo">Meridian</div>
-        <p>Meridian is the operating brand of Meridian Real Estate. Building communities that endure.</p>
-        <p style="margin-top:10px">120 Market Street — 3rd Floor<br>Anytown, ST 00000</p>
+        <div class="foot-logo">Cutting Edge</div>
+        <p>Cutting Edge Services LLC.<br>Modern landscape professionals.</p>
+        <p style="margin-top:10px">Landscape, hardscape &amp; artificial turf<br>Lake Jackson · Brazoria County, Texas</p>
       </div>
-      <div class="foot-col"><h4>Navigate</h4><a href="#hero">Home</a><a href="#company">Company</a><a href="#capabilities">Capabilities</a><a href="#portfolio">Portfolio</a></div>
-      <div class="foot-col"><h4>Connect</h4><a href="mailto:hello@meridian.example">hello@meridian.example</a><a href="tel:0000000000">000.000.0000</a><span>Instagram</span><span>LinkedIn</span></div>
+      <div class="foot-col"><h4>Navigate</h4><a href="#hero">Home</a><a href="#company">About</a><a href="#capabilities">Services</a><a href="#portfolio">Our work</a></div>
+      <div class="foot-col"><h4>Connect</h4><a href="tel:+19793885564">(979) 388-5564</a><a href="https://www.instagram.com/cuttingedgeservicesllc">Instagram</a><a href="https://www.facebook.com/CuttingEdgeSpecialists">Facebook</a></div>
     </div>
-    <div class="foot-bottom"><span>© 2026 Meridian. All rights reserved.</span><span>Privacy Policy</span></div>
+    <div class="foot-bottom"><span>© 2026 Cutting Edge Services LLC. All rights reserved.</span><a href="#hero">Back to top ↑</a></div>
   </div>
 </footer>
 
@@ -735,6 +629,7 @@
   var heroCopy = document.querySelector('.hero-copy');
   if (!sourceWrap || !target || !sourceMedia) return;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) { target.style.visibility = 'visible'; return; }
   var floating = sourceMedia.cloneNode(true);
   var startScrollY = 0;
   var endScrollY = 1;
